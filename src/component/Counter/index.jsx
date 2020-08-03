@@ -3,7 +3,7 @@ import React from "react";
 class Counter extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: 0 };
+        this.state = { value: 0 ,groupSize:0};
     }
 
     onIncrease = () => {
@@ -23,6 +23,17 @@ class Counter extends React.Component {
         )
         this.props.onDescrese()
     }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.groupSize !== state.groupSize) {
+          return {
+            value: 0,
+            groupSize:props.groupSize
+          }
+        }
+        // Return null to indicate no change to state.
+        return null;
+      }
 
     render() {
         return (
