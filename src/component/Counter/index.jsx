@@ -1,50 +1,39 @@
 import React from "react";
+import PropTypes from 'prop-types'
 
 class Counter extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: 0 ,groupSize:0};
+        this.increment = this.increment.bind(this);
+        this.decrement = this.decrement.bind(this);
     }
 
-    onIncrease = () => {
-        this.setState(
-            (prevState) => ({
-                value : prevState.value+1
-            })
-        )
-        this.props.onIncrease()
+    increment(){
+        this.props.onIncrement();
     }
     
-    onDescrese = () => {
-        this.setState(
-            (prevState) => ({
-                value : prevState.value-1
-            })
-        )
-        this.props.onDescrese()
+    decrement(){
+        this.props.onDecrement();
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if (props.groupSize !== state.groupSize) {
-          return {
-            value: 0,
-            groupSize:props.groupSize
-          }
-        }
-        // Return null to indicate no change to state.
-        return null;
-      }
-
     render() {
+        const {groupSize, value, onIncrement, onDecrement} = this.props
         return (
             <div>
-                <button onClick={this.onDescrese}>-</button>
-                <mark>{this.state.value}</mark>
-                <button onClick={this.onIncrease}>+</button>
+                <button onClick={onDecrement}>-</button>
+                <mark>{value}</mark>
+                <button onClick={onIncrement}>+</button>
             </div>
         );
 
     }
 
 }
+Counter.propTypes = {
+    groupSize: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+    onIncrement: PropTypes.func.isRequired,
+    onDescrement: PropTypes.func.isRequired
+}
+
 export default Counter;
