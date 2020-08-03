@@ -5,13 +5,28 @@ import Counter from "../Counter";
 class CounterGroup extends React.Component{
     constructor(props){
         super(props);
-        this.state = {size:0};
+        this.state = {size:0,totalValue:0};
     }
     handleSizeChange = (event) => {
         this.setState({
             size:event.target.value?parseInt(event.target.value):0
         })
     }
+    handleIncrease = () =>{
+        this.setState((prevState)=>(
+            {
+                totalValue:prevState.totalValue+1
+            })
+        )
+    }
+    handleDescrese = () =>{
+        this.setState((prevState)=>(
+            {
+                totalValue:prevState.totalValue-1
+            })
+        )
+    }
+
     render(){
         const initArray = [...Array(this.state.size).keys()];
 
@@ -20,8 +35,11 @@ class CounterGroup extends React.Component{
                 Group Size:
                 <input onBlur={this.handleSizeChange} defaultValue={0}></input>
             </label>
+            <label>
+                Total Number:{this.state.totalValue}
+            </label>
             {
-                initArray.map(key => <Counter key={key} />)
+                initArray.map(key => <Counter onIncrease={this.handleIncrease} onDescrese={this.handleDescrese} key={key} />)
             }
         </div>;
     }
