@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 class CounterGroup extends React.Component{
     constructor(props){
         super(props);
-        console.log(this.props);
         this.state = {size:0};
     }
     handleSizeChange = (event) => {
@@ -16,7 +15,6 @@ class CounterGroup extends React.Component{
     }
 
     render(){
-        //const {size, totalValue, onIncrement, onDecrement} = this.props;
         const initArray = [...Array(this.state.size).keys()];
         
         return <div>
@@ -40,6 +38,7 @@ class CounterGroup extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
         sum: state
     }
@@ -50,11 +49,5 @@ const mapDispatchToProps = (dispatch) => ({
     onDecrement: () => dispatch({type: 'DECREMENT'}),
     unmountCounter: (value) => dispatch({ type: "UNMOUNT_COUNTER", count: value })
 })
-
-CounterGroup.propTypes = {
-    size: PropTypes.number.isRequired,
-    sum: PropTypes.number.isRequired,
-  }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(CounterGroup);

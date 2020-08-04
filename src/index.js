@@ -9,7 +9,7 @@ import { createStore } from 'redux';
 
 
 const store = createStore(reducer);
-
+//Provider的作用
 ReactDOM.render(
   <Provider store={store}>
     <App />
