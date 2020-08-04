@@ -12,7 +12,7 @@ class ToDoItem extends React.Component {
     render () {
         return <div>
             <label>{this.props.value}</label>
-            <button onClick={}>x</button>
+            <button>x</button>
         </div>
     }
 }

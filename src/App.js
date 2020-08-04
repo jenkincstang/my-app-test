@@ -1,13 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import CounterGroup from './component/CounterGroup/CounterGroup';
+import ToDoInput from './component/ToDoInput';
+import ToDoList from './component/ToDoList';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <CounterGroup />
+        <ToDoInput></ToDoInput>
+        <ToDoList></ToDoList>
       </header>
     </div>
   );
