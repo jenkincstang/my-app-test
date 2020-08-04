@@ -6,7 +6,7 @@ class ToDoInput extends React.Component {
     constructor(props) {
         super(props);
         console.log(props)
-        this.state = { value: "" };
+        this.state = { value: "" ,mark:false};
     }
 
     handleChange = (event) => {
@@ -14,12 +14,13 @@ class ToDoInput extends React.Component {
     }
 
     addItem = () => {
-        this.props.addItem(this.state.value);
+        this.props.addItem(this.state);
         this.setState({value: ""});
     }
 
     render() {
         console.log(this.state.value);
+        console.log(this.state.mark);
         return (<div>
             <input type="text" value={this.state.value} onChange={this.handleChange}></input><button onClick={this.addItem}>ADD</button>
         </div>)
@@ -29,9 +30,7 @@ class ToDoInput extends React.Component {
 
 
 const mapDispatchToProps = (dispatch) => ({
-    // onIncrement: () => dispatch({type: 'INCREMENT'}),
-    addItem: (value) => dispatch({type: "ADD_ITEM", value}),
-    deleteItem: (index) => dispatch({type: 'DELETE_ITEM', index})
+    addItem: (item) => dispatch({type: "ADD_ITEM", item})
 })
 
 export default connect(null, mapDispatchToProps)(ToDoInput)

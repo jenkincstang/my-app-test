@@ -5,7 +5,7 @@ import { connect } from "react-redux"
 class ToDoItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { completed: false }
+        this.state = { }
     }
 
     deleteItem = () => {
@@ -13,15 +13,13 @@ class ToDoItem extends React.Component {
     }
 
     changeComplete = () => {
-        this.setState((prevState) => ({
-            completed: !prevState.completed
-        }))
+        this.props.updateItem(this.props.index)
     }
 
     render() {
         return <div>
             <label style={{
-                textDecoration: this.state.completed ? 'line-through' : 'none'
+                textDecoration: this.state.mark ? 'line-through' : 'none'
             }} onClick={this.changeComplete}>{this.props.value}</label>
             <button onClick={this.deleteItem}>x</button>
         </div>
@@ -29,7 +27,8 @@ class ToDoItem extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    deleteItem: (index) => dispatch({ type: 'DELETE_ITEM', index })
+    deleteItem: (index) => dispatch({ type: 'DELETE_ITEM', index }),
+    updateItem: (index) => dispatch({ type: 'UPDATE_ITEM', index }),
 })
 
 

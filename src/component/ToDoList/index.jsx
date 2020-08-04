@@ -15,7 +15,7 @@ class ToDoList extends React.Component {
             {
                 this.props.items.map((item, index) => <ToDoItem
 
-                    value={item} index={index} key={index} />)
+                    value={item.value} mark={item.mark} index={index} key={index} />)
             }
 
         </div>)
