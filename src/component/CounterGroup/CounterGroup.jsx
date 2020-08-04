@@ -1,58 +1,60 @@
 import React from "react";
 import Counter from "../Counter";
-import { createStore } from 'redux'
-import counter from '../../reducers'
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 
-const store = createStore(counter)
 class CounterGroup extends React.Component{
     constructor(props){
         super(props);
-        this.handleIncrement = this.handleIncrement.bind(this);
-        this.handleDecrement = this.handleDecrement.bind(this);
+        console.log(this.props);
+        this.state = {size:0};
     }
     handleSizeChange = (event) => {
         this.setState({
-            size:event.target.value?parseInt(event.target.value):0,
-            totalValue:0
+            size: event.target.value?parseInt(event.target.value):0,
         })
     }
-    handleIncrement(){
-        this.props.onIncrement();
-    }
-    
-    handleDecrement(){
-        this.props.onDecrement();
-    }
-    render(){
-        const {size, totalValue, onIncrement, onDecrement} = this.props;
-        const initArray = [...Array(size).keys()];
-        
 
+    render(){
+        //const {size, totalValue, onIncrement, onDecrement} = this.props;
+        const initArray = [...Array(this.state.size).keys()];
+        
         return <div>
             <label>
                 Group Size:
                 <input onBlur={this.handleSizeChange} defaultValue={0}></input>
             </label>
             <label>
-                Total Number:{totalValue}
+                Total Number:{this.props.sum}
             </label>
             {
                 initArray.map(key => <Counter 
-                    groupSize={size} 
-                    value = {store.getState()}
-                    onIncrement={() => store.dispatch({ type: 'INCREMENT' })} 
-                    onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
+                    groupSize={this.state.size} 
+                    onIncrement={() => this.props.onIncrement()}
+                    onDecrement={() => this.props.onDecrement()}
+                    unmountCounter={this.props.unmountCounter}
                     key={key} />)
             }
         </div>;
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        sum: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    onIncrement: () => dispatch({type: 'INCREMENT'}),
+    onDecrement: () => dispatch({type: 'DECREMENT'}),
+    unmountCounter: (value) => dispatch({ type: "UNMOUNT_COUNTER", count: value })
+})
+
 CounterGroup.propTypes = {
     size: PropTypes.number.isRequired,
-    totalValue: PropTypes.number.isRequired,
-    onIncrement: PropTypes.func.isRequired,
-    onDecrement: PropTypes.func.isRequired
+    sum: PropTypes.number.isRequired,
   }
-export default CounterGroup;
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CounterGroup);
