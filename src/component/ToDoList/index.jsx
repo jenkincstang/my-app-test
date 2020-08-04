@@ -1,22 +1,38 @@
 import React from "react";
 import ToDoItem from "../ToDoItem";
+import ToDoInput from "../ToDoInput"
+import { connect } from "react-redux";
 
 class ToDoList extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state = {size:5};
+        this.state = {};
     }
 
-    render(){
-        const initArray = [...Array(this.state.size).keys()];
+    render() {
+        console.log(this.props.items);
         return (<div>
             {
-                initArray.map(key => <ToDoItem 
-                    
-                  value=""  key={key} />)
+                this.props.items.map((item, index) => <ToDoItem
+
+                    value={item} index={index} key={index} />)
             }
+
         </div>)
+    }
+
+    // addItem = () => {
+    //     this.state.map((item) => {})
+    // }
+}
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        items: state.todoItems
     }
 }
 
-export default ToDoList;
+export default connect(mapStateToProps)(ToDoList)
+
+// export default ToDoList;

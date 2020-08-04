@@ -5,16 +5,32 @@ import { connect } from "react-redux"
 class ToDoItem extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = { completed: false }
     }
 
+    deleteItem = () => {
+        this.props.deleteItem(this.props.index);
+    }
 
-    render () {
+    changeComplete = () => {
+        this.setState((prevState) => ({
+            completed: !prevState.completed
+        }))
+    }
+
+    render() {
         return <div>
-            <label>{this.props.value}</label>
-            <button>x</button>
+            <label style={{
+                textDecoration: this.state.completed ? 'line-through' : 'none'
+            }} onClick={this.changeComplete}>{this.props.value}</label>
+            <button onClick={this.deleteItem}>x</button>
         </div>
     }
 }
 
-export default ToDoItem;
+const mapDispatchToProps = (dispatch) => ({
+    deleteItem: (index) => dispatch({ type: 'DELETE_ITEM', index })
+})
+
+
+export default connect(null, mapDispatchToProps)(ToDoItem);
