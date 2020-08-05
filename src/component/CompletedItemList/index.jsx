@@ -4,16 +4,17 @@ import { connect } from "react-redux";
 import ToDoItem from "../ToDoItem"
 
 class CompletedItemList extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {};
     }
-    render(){
+    //todo
+    render() {
         console.log(this.props.completedItems);
         return <div>
             {
-                this.props.completedItems.map((item,index) => 
-                    <ToDoItem value={item.value} mark={item.mark} index={index} key={index} />
+                this.props.completedItems.map((item, index) =>
+                    <ToDoItem item={item} key={index} />
                 )
             }
         </div>
@@ -23,7 +24,7 @@ class CompletedItemList extends React.Component {
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        completedItems: state.todoItems
+        completedItems: state.todoItems.filter(item => item.mark)
     }
 }
 

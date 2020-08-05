@@ -8,28 +8,19 @@ class ToDoItem extends React.Component {
         this.state = { }
     }
 
-    deleteItem = () => {
-        this.props.deleteItem(this.props.index);
-    }
-
-    changeComplete = () => {
-        this.props.updateItem(this.props.index)
-    }
-
     render() {
         return <div>
             <label style={{
-                textDecoration: this.state.mark ? 'line-through' : 'none'
-            }} onClick={this.changeComplete}>{this.props.value}</label>
-            <button onClick={this.deleteItem}>x</button>
+                textDecoration: this.props.item.mark ? 'line-through' : 'none'
+            }} onClick={() => this.props.updateItem(this.props.item.id)}>{this.props.item.value}</label>
+            <button onClick={() => this.props.deleteItem(this.props.item.id)}>x</button>
         </div>
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    deleteItem: (index) => dispatch({ type: 'DELETE_ITEM', index }),
-    updateItem: (index) => dispatch({ type: 'UPDATE_ITEM', index }),
+    deleteItem: (id) => dispatch({ type: 'DELETE_ITEM', index: id }),
+    updateItem: (id) => dispatch({ type: 'UPDATE_ITEM', index: id }),
 })
-
 
 export default connect(null, mapDispatchToProps)(ToDoItem);

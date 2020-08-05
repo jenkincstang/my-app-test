@@ -1,37 +1,33 @@
-export default (state = { todoItems: []}, action) => {
+const initState = {
+  todoItems: [],
+  nextItemId: 1
+};
+
+export default (state = initState, action) => {
   console.log(action);
   switch (action.type) {
-<<<<<<< HEAD
-    case 'INCREMENT':
-      return state + 1
-    case 'DECREMENT':
-      return state - 1
-    case 'INPUT_CHANGE'
-      return state
-=======
     case 'ADD_ITEM': {
       console.log(action.value);
       console.log(action.mark);
       return {
-        todoItems: [...state.todoItems, action.item]
+        todoItems: [...state.todoItems, {...action.item, id: state.nextItemId}],
+        nextItemId: state.nextItemId + 1
       }
     }
     case 'UPDATE_ITEM': {
-      console.log(action.index);
-        state.todoItems[action.index].mark = !state.todoItems[action.index].mark;
-        console.log(state.todoItems[action.index].mark);
-        console.log(!state.todoItems[action.index].mark);
-        console.log("TODO"+[...state.todoItems]);
-        return {todoItems:[...state.todoItems]}
+        return {
+          ...state,
+          todoItems: state.todoItems.map(item => item.id === action.index ? {...item, mark: !item.mark} : item)
+        }
     }
     case 'DELETE_ITEM': {
       return {
-        todoItems: state.todoItems.filter((todoItem, index) =>
-          index != action.index
+        ...state,
+        todoItems: state.todoItems.filter((todoItem) =>
+        todoItem.id != action.index
         )
       }
     }
->>>>>>> 7d18448b31c630d46df23726615eefe4c02eb5a5
     default:
       return state
   }

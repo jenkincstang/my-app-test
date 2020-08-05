@@ -8,14 +8,14 @@ class ToDoList extends React.Component {
         super(props);
         this.state = {};
     }
-
+//todo
     render() {
         console.log(this.props.items);
         return (<div>
             {
-                this.props.items.map((item, index) => <ToDoItem
+                this.props.items.map(item => <ToDoItem
 
-                    value={item.value} mark={item.mark} index={index} key={index} />)
+                    item={item} key={item.id} />)
             }
 
         </div>)
