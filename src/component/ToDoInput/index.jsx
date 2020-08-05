@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+import todolistApi from "../Axios"
 
 class ToDoInput extends React.Component {
     constructor(props) {
@@ -25,6 +26,15 @@ class ToDoInput extends React.Component {
             <input type="text" value={this.state.value} onChange={this.handleChange}></input><button onClick={this.addItem}>ADD</button>
         </div>)
     }
+
+    async componentDidMount() {
+        todolistApi.getAllItems().then(result => {
+            for(let i=0;i<result.data.length;i++){
+                console.log(result.data[i].content);
+                this.props.addItem({value:result.data[i].content,mark:result.data[i].status})
+            }
+            })
+        }
 }
 
 
