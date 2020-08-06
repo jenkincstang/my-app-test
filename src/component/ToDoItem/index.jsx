@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux"
 
 class ToDoItem extends React.Component {
+    //todo remove
     constructor(props) {
         super(props);
-        this.state = { }
+        this.state = {}
     }
 
     render() {

@@ -7,16 +7,16 @@ class ToDoInput extends React.Component {
     constructor(props) {
         super(props);
         console.log(props)
-        this.state = { value: "" ,mark:false};
+        this.state = { value: "", mark: false };
     }
 
     handleChange = (event) => {
-        this.setState({value: event.target.value});
+        this.setState({ value: event.target.value });
     }
 
     addItem = () => {
         this.props.addItem(this.state);
-        this.setState({value: ""});
+        this.setState({ value: "" });
     }
 
     render() {
@@ -29,18 +29,18 @@ class ToDoInput extends React.Component {
 
     async componentDidMount() {
         todolistApi.getAllItems().then(result => {
-            for(let i=0;i<result.data.length;i++){
+            for (let i = 0; i < result.data.length; i++) {
                 console.log(result.data[i].content);
-                this.props.addItem({value:result.data[i].content,mark:result.data[i].status})
+                this.props.addItem({ value: result.data[i].content, mark: result.data[i].status })
             }
-            })
-        }
+        })
+    }
 }
 
 
 
 const mapDispatchToProps = (dispatch) => ({
-    addItem: (item) => dispatch({type: "ADD_ITEM", item})
+    addItem: (item) => dispatch({ type: "ADD_ITEM", item })
 })
 
 export default connect(null, mapDispatchToProps)(ToDoInput)

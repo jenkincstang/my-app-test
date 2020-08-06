@@ -8,19 +8,18 @@ class ToDoList extends React.Component {
         super(props);
         this.state = {};
     }
-//todo
+    //todo
     render() {
         console.log(this.props.items);
-        return (<div>
-            {
-                this.props.items.map(item => <ToDoItem
-
-                    item={item} key={item.id} />)
-            }
-
-        </div>)
+        return (
+            <div>
+                {
+                    this.props.items.map(item => <ToDoItem item={item} key={item.id} />)
+                }
+            </div> 
+        )
     }
-
+//todo
     // addItem = () => {
     //     this.state.map((item) => {})
     // }
