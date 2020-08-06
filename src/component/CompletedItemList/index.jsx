@@ -6,11 +6,9 @@ import ToDoItem from "../ToDoItem"
 class CompletedItemList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
     }
     //todo
     render() {
-        console.log(this.props.completedItems);
         return <div>
             {
                 this.props.completedItems.map((item) =>
@@ -22,7 +20,6 @@ class CompletedItemList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         completedItems: state.todoItems.filter(item => item.status)
     }

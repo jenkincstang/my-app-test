@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux"
+import todolistApi from "../Axios"
 
 class ToDoItem extends React.Component {
     //todo remove
@@ -8,13 +9,16 @@ class ToDoItem extends React.Component {
         super(props);
     }
 
+    updateItem = (item) => {
+        this.props.updateItem(item.id);
+        todolistApi.updateItem(item);
+    }
 
-    
     render() {
         return <div>
             <label style={{
                 textDecoration: this.props.item.status ? 'line-through' : 'none'
-            }} onClick={() => this.props.updateItem(this.props.item)}>{this.props.item.content}</label>
+            }} onClick={() => this.updateItem(this.props.item)}>{this.props.item.content}</label>
             <button onClick={() => this.props.deleteItem(this.props.item.id)}>x</button>
         </div>
     }
