@@ -7,32 +7,30 @@ class ToDoInput extends React.Component {
     constructor(props) {
         super(props);
         console.log(props)
-        this.state = { value: "", mark: false };
+        this.state = { content: "", status: false };
     }
 
     handleChange = (event) => {
-        this.setState({ value: event.target.value });
+        this.setState({ content: event.target.value });
     }
 
     addItem = () => {
-        this.props.addItem(this.state);
-        this.setState({ value: "" });
+            todolistApi.postItem(this.state).then(res => {
+            console.log(res);
+            this.props.addItem({...res.data});
+            this.setState({ content: "" });
+        });
     }
 
     render() {
-        console.log(this.state.value);
-        console.log(this.state.mark);
         return (<div>
-            <input type="text" value={this.state.value} onChange={this.handleChange}></input><button onClick={this.addItem}>ADD</button>
+            <input type="text" value={this.state.content} onChange={this.handleChange}></input><button onClick={this.addItem}>ADD</button>
         </div>)
     }
 
     async componentDidMount() {
         todolistApi.getAllItems().then(result => {
-            for (let i = 0; i < result.data.length; i++) {
-                console.log(result.data[i].content);
-                this.props.addItem({ value: result.data[i].content, mark: result.data[i].status })
-            }
+            result.data.map(item => this.props.addItem(item))
         })
     }
 }

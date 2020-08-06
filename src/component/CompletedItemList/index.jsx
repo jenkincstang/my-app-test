@@ -13,8 +13,8 @@ class CompletedItemList extends React.Component {
         console.log(this.props.completedItems);
         return <div>
             {
-                this.props.completedItems.map((item, index) =>
-                    <ToDoItem item={item} key={index} />
+                this.props.completedItems.map((item) =>
+                    <ToDoItem item={item} key={item.id} />
                 )
             }
         </div>
@@ -24,7 +24,7 @@ class CompletedItemList extends React.Component {
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        completedItems: state.todoItems.filter(item => item.mark)
+        completedItems: state.todoItems.filter(item => item.status)
     }
 }
 

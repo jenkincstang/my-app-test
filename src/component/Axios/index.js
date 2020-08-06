@@ -8,7 +8,8 @@ const store = createStore(reducers)
 const baseURL = "https://5e9ec500fb467500166c4658.mockapi.io/todos";
 const todolistApi = axios.create({baseURL: baseURL});
 const getAllItems = () => todolistApi.get('/');
-const postItem = (item) => todolistApi.post('/',{item});
+const postItem = (item) => todolistApi.post('/',item);
+const updateItem = (item) => todolistApi.post('/'+item.id,item);
 
 
 // todolistApi.interceptors.request.use(req=>{
