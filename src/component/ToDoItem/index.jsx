@@ -14,12 +14,17 @@ class ToDoItem extends React.Component {
         todolistApi.updateItem(item);
     }
 
+    deleteItem = (id) => {
+        this.props.deleteItem(id);
+        todolistApi.deleteItem(id);
+    }
+
     render() {
         return <div>
             <label style={{
                 textDecoration: this.props.item.status ? 'line-through' : 'none'
             }} onClick={() => this.updateItem(this.props.item)}>{this.props.item.content}</label>
-            <button onClick={() => this.props.deleteItem(this.props.item.id)}>x</button>
+            <button onClick={() => this.deleteItem(this.props.item.id)}>x</button>
         </div>
     }
 }

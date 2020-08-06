@@ -10,7 +10,7 @@ const todolistApi = axios.create({baseURL: baseURL});
 const getAllItems = () => todolistApi.get('/');
 const postItem = (item) => todolistApi.post('/',item);
 const updateItem = (item) => todolistApi.put('/'+item.id,item);
-const daleteItem = (item) => todolistApi.put('/'+item.id,item);
+const deleteItem = (id) => todolistApi.delete('/'+id);
 
 // todolistApi.interceptors.request.use(req=>{
 //     store.dispatch({type:LOADING_TOGGLE,payload :{loading:true}});
@@ -21,5 +21,5 @@ export default {
     getAllItems,
     postItem,
     updateItem,
-    daleteItem
+    deleteItem
 };
